@@ -56,6 +56,10 @@ guidance, Regulation X error-resolution timelines, and a real Wells Fargo servic
 Full trace: `langsmith/trace_screenshot.png`. This is the intended outcome, not a failed demo: it shows
 the diagnostic catches real risk instead of approving every use case by default.
 
+## Post-Presentation Fix
+
+The Groundwork diagnostic endpoint failed to save reports in production during the Round 1 demo. Local filesystem writes do not persist on Vercel. Fixed by switching report-store.ts to Vercel Blob storage. put() replaces writeFile(). get() and list() replace readFile() and readdir(). The report is a JSON blob keyed by id, so the swap was close to drop-in. Postgres was considered and deferred. It is the right choice later, when the dashboard needs to query across many reports, not for single save/retrieve by id.
+
 ## Setup
 
 This repo is documentation and evidence, not a runnable application. The diagnostic engine it calls

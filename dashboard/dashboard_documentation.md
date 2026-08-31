@@ -66,8 +66,8 @@ substituting a mismatched filter.
 
 ## View 5: Total Documented Incidents
 
-*Pending. Headline KPI tile, 1,641, to be added at the top of the dashboard. Screenshot to be added here
-once built.*
+Headline KPI tile added at the top of the dashboard. Shows 1,641 total AI incidents tracked, pulled from the AI Incident Database. See screenshot below.
+(images/Dashboard.png)
 
 ## On MIT as a source, generally
 
