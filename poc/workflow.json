@@ -1,0 +1,123 @@
+{
+  "name": "groundwork-use-case-readiness",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "diagnose",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0bff8ab0-263b-4f77-8294-5869c418ef2b",
+      "name": "Webhook",
+      "webhookId": "59171c00-bd14-43b2-bcd4-32a42a10ee52"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://groundwork-nelly15.vercel.app/api/diagnose",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "REDACTED"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"companyName\": \"Jane's Fintech Co\",\n  \"useCase\": \"{{ $json.body.use_case_description }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5a30535c-7b97-4e26-ab57-1c7e5b1ee0d7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1f8e4cd-f80e-409d-a2cf-11cf5580710e",
+              "name": "verdict",
+              "value": "={{ $json.verdict }}",
+              "type": "string"
+            },
+            {
+              "id": "4cc666a8-7a1f-48a0-931d-549194eb2089",
+              "name": "fixFirstQuestion",
+              "value": "={{ $json.fixFirst.question }}",
+              "type": "string"
+            },
+            {
+              "id": "c5a0ebbb-cdf7-4a2f-922e-4108572b8ae5",
+              "name": "companyName",
+              "value": "={{ $json.intake.companyName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "11e926c3-50ef-4502-95e4-223aed9c2992",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6a0a5f25-5109-42db-88ce-2d56d268b0f5",
+  "meta": {
+    "instanceId": "00cafa1eb8a383ac595b6bbf54c5f8acd05d9d1462911bd4a0edac031509b829"
+  },
+  "id": "N2gSS7JgM9zEOxPs",
+  "tags": []
+}
